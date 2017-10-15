@@ -1,0 +1,31 @@
+<form class="form" [formGroup]="signInForm">
+  <div class="header header-primary text-center">
+    <h4>
+      <ng-content></ng-content>
+    </h4>
+  </div>
+  <p class="text-divider">Selecto ETS</p>
+  <div class="content">
+    <div class="input-group">
+										<span class="input-group-addon">
+											<i class="icon icon--email"></i>
+										</span>
+      <app-input [type]="'text'"
+                 [placeholder]="'Email'"
+                 [control]="signInForm.controls['email']"></app-input>
+    </div>
+    <div class="input-group">
+										<span class="input-group-addon">
+											<i class="icon icon--password"></i>
+										</span>
+      <app-input [type]="'password'"
+                 [placeholder]="'Password'"
+                 [control]="signInForm.controls['password']"></app-input>
+    </div>
+  </div>
+  <div class="footer text-center">
+    <a href="#" class="btn btn-simple btn-primary btn-lg" (click)="submit(signInForm)">
+      Sign in
+    </a>
+  </div>
+</form>

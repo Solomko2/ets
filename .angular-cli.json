@@ -3,7 +3,59 @@
   "project": {
     "name": "ets"
   },
-  "apps": [],
+  "apps": [
+    {
+      "name": "client",
+      "root": "apps/client/src",
+      "outDir": "dist/apps/client",
+      "assets": [
+        "assets",
+        "favicon.ico"
+      ],
+      "index": "index.html",
+      "main": "main.ts",
+      "polyfills": "polyfills.ts",
+      "test": "../../../test.js",
+      "tsconfig": "../../../tsconfig.app.json",
+      "testTsconfig": "../../../tsconfig.spec.json",
+      "prefix": "ets",
+      "styles": [
+        "assets/css/bootstrap.min.css",
+        "assets/sass/material-kit.scss",
+        "styles.scss"
+      ],
+      "scripts": [],
+      "environmentSource": "environments/environment.ts",
+      "environments": {
+        "dev": "environments/environment.ts",
+        "prod": "environments/environment.prod.ts"
+      }
+    },
+    {
+      "name": "auth",
+      "root": "libs/auth/src",
+      "test": "../../../test.js",
+      "appRoot": ""
+    },
+    {
+      "name": "auth",
+      "root": "libs/auth/src",
+      "test": "../../../test.js",
+      "appRoot": ""
+    },
+    {
+      "name": "shared",
+      "root": "libs/shared/src",
+      "test": "../../../test.js",
+      "appRoot": ""
+    },
+    {
+      "name": "shared",
+      "root": "libs/shared/src",
+      "test": "../../../test.js",
+      "appRoot": ""
+    }
+  ],
   "e2e": {
     "protractor": {
       "config": "./protractor.conf.js"
@@ -29,9 +81,12 @@
     "schematics": {
       "collection": "@nrwl/schematics",
       "postGenerate": "npm run format",
-      "newProject": ["app", "lib"]
+      "newProject": [
+        "app",
+        "lib"
+      ]
     },
-    "styleExt": "css",
+    "styleExt": "scss",
     "component": {}
   }
 }
