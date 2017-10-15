@@ -1,13 +1,24 @@
 import { Auth } from './auth.interfaces';
-import { AuthAction } from './auth.actions';
+import * as AuthActions from '@ets/auth/src/+state/auth.actions';
+import {User} from "@ets/auth/src/models";
+import {authInitialState} from "@ets/auth/src/+state/auth.init";
 
-export function authReducer(state: Auth, action: AuthAction): Auth {
+
+export interface State {
+  loggedIn: boolean;
+  user: User | null;
+}
+
+export function authReducer(state: Auth = authInitialState, action: AuthActions.AuthActions) {
   switch (action.type) {
-    case 'DATA_LOADED': {
-      return { ...state, ...action.payload };
+    case AuthActions.LOGIN_SUCCESS: {
+      return Object.assign({}, state, { user: action.payload, isLoggedIn: true });
     }
     default: {
       return state;
     }
   }
 }
+
+export const getLoggedIn = (state: State) => state.loggedIn;
+export const getUser = (state: State) => state.user;

@@ -44,6 +44,12 @@
       "appRoot": ""
     },
     {
+      "name": "home",
+      "root": "libs/home/src",
+      "test": "../../../test.js",
+      "appRoot": ""
+    },
+    {
       "name": "shared",
       "root": "libs/shared/src",
       "test": "../../../test.js",

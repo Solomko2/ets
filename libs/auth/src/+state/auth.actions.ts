@@ -1,11 +1,36 @@
-export interface LoadData {
-  type: 'LOAD_DATA';
-  payload: {};
+import { Action } from '@ngrx/store';
+import { Authenticate, User } from '@ets/auth/src/models';
+
+export const LOGIN = '[Auth] Login';
+export const LOGOUT = '[Auth] Logout';
+export const LOGIN_SUCCESS = '[Auth] Login Success';
+export const LOGIN_FAILURE = '[Auth] Login Failure';
+export const LOGIN_REDIRECT = '[Auth] Login Redirect';
+
+export class Login implements Action {
+  readonly type = LOGIN;
+
+  constructor(public payload: Authenticate) {}
 }
 
-export interface DataLoaded {
-  type: 'DATA_LOADED';
-  payload: {};
+export class LoginSuccess implements Action {
+  readonly type = LOGIN_SUCCESS;
+
+  constructor(public payload: User) {}
 }
 
-export type AuthAction = LoadData | DataLoaded;
+export class LoginFailure implements Action {
+  readonly type = LOGIN_FAILURE;
+
+  constructor(public payload: any) {}
+}
+
+export class LoginRedirect implements Action {
+  readonly type = LOGIN_REDIRECT;
+}
+
+export class Logout implements Action {
+  readonly type = LOGOUT;
+}
+
+export type AuthActions = Login | LoginSuccess | LoginFailure | LoginRedirect | Logout;

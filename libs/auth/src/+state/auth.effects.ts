@@ -1,26 +1,38 @@
 import { Injectable } from '@angular/core';
 import { Effect, Actions } from '@ngrx/effects';
 import { DataPersistence } from '@nrwl/nx';
-import { of } from 'rxjs/observable/of';
-import 'rxjs/add/operator/switchMap';
+import 'rxjs/add/operator/map';
+import 'rxjs/add/operator/do';
 import { AuthState } from './auth.interfaces';
-import { LoadData, DataLoaded } from './auth.actions';
+import { AuthService } from '../services/auth.service';
+import { User } from '@ets/auth/src/models';
+import * as AuthActions from '@ets/auth/src/+state/auth.actions';
+import { Router } from '@angular/router';
 
 @Injectable()
 export class AuthEffects {
   @Effect()
-  loadData = this.d.pessimisticUpdate('LOAD_DATA', {
-    run: (a: LoadData, state: AuthState) => {
-      return {
-        type: 'DATA_LOADED',
-        payload: {}
-      };
+  signIn = this.d.pessimisticUpdate(AuthActions.LOGIN, {
+    run: (a: AuthActions.Login, state: AuthState) => {
+      return this.authService.signIn(a.payload).map((user: User) => new AuthActions.LoginSuccess(user));
     },
 
-    onError: (a: LoadData, error) => {
+    onError: (a: AuthActions.Login, error) => {
       console.error('Error', error);
     }
   });
 
-  constructor(private actions: Actions, private d: DataPersistence<AuthState>) {}
+  @Effect({ dispatch: false })
+  loginSuccess$ = this.actions
+    .ofType(AuthActions.LOGIN_SUCCESS)
+    .do(() => this.router.navigate(['/home']))
+    .map((auth: AuthActions.LoginSuccess) => auth.payload)
+    .do((user: User) => localStorage.setItem('token', user.token));
+
+  constructor(
+    private actions: Actions,
+    private d: DataPersistence<AuthState>,
+    private authService: AuthService,
+    private router: Router
+  ) {}
 }

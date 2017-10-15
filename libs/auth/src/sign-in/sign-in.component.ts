@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import {Store} from "@ngrx/store";
-import {Authenticate} from "../models/authenticate";
+import { Store } from '@ngrx/store';
+import { Authenticate } from '../models/authenticate';
+import * as AuthActions from '@ets/auth/src/+state/auth.actions';
 
 @Component({
   selector: 'app-sign-in',
@@ -8,14 +9,11 @@ import {Authenticate} from "../models/authenticate";
   styleUrls: ['./sign-in.component.css']
 })
 export class SignInComponent implements OnInit {
-  user$ = this.store.select('auth');
-
-  constructor(public store: Store<any>) { }
+  constructor(public store: Store<any>) {}
 
   ngOnInit() {}
 
   login(user: Authenticate) {
-    console.log(user);
-    // this.store.dispatch();
+    this.store.dispatch(new AuthActions.Login(user));
   }
 }

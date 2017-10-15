@@ -1,5 +1,6 @@
 export interface Auth {
-  // define state here
+  user: any;
+  isLoggedIn: boolean;
 }
 
 export interface AuthState {
