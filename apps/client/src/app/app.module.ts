@@ -10,7 +10,8 @@ import { AppEffects } from './+state/app.effects';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { environment } from '../environments/environment';
 import { AppRoutingModule } from './app-router.module';
-import {AuthGuard} from "@ets/auth/src/services/auth.guard";
+import { AuthGuard } from '@ets/auth/src/services/auth.guard';
+import { AuthModule } from '@ets/auth';
 
 @NgModule({
   imports: [
@@ -19,7 +20,8 @@ import {AuthGuard} from "@ets/auth/src/services/auth.guard";
     StoreModule.forRoot(appReducer, { initialState: appInitialState }),
     EffectsModule.forRoot([AppEffects]),
     !environment.production ? StoreDevtoolsModule.instrument() : [],
-    AppRoutingModule
+    AppRoutingModule,
+    AuthModule
   ],
   declarations: [AppComponent],
   bootstrap: [AppComponent],

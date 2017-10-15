@@ -5,8 +5,13 @@ import { EffectsModule } from '@ngrx/effects';
 import { homeReducer } from './+state/home.reducer';
 import { homeInitialState } from './+state/home.init';
 import { HomeEffects } from './+state/home.effects';
-import { UserListComponent } from './user-list/user-list.component';
 import { HomeRoutingModule } from './home-router.module';
+
+// containers
+import * as fromContainers from './containers';
+
+// components
+import * as fromComponents from './components';
 
 @NgModule({
   imports: [
@@ -16,6 +21,9 @@ import { HomeRoutingModule } from './home-router.module';
     HomeRoutingModule
   ],
   providers: [HomeEffects],
-  declarations: [UserListComponent]
+  declarations: [
+    ...fromContainers.containers,
+    ...fromComponents.components
+  ]
 })
 export class HomeModule {}

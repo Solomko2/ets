@@ -29,6 +29,11 @@ export class AuthEffects {
     .map((auth: AuthActions.LoginSuccess) => auth.payload)
     .do((user: User) => localStorage.setItem('token', user.token));
 
+  @Effect({ dispatch: false })
+  loginRedirect$ = this.actions
+    .ofType(AuthActions.LOGIN_REDIRECT, AuthActions.LOGOUT)
+    .do(authed => this.router.navigate(['/signin']));
+
   constructor(
     private actions: Actions,
     private d: DataPersistence<AuthState>,
