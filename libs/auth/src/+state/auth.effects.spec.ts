@@ -1,9 +1,8 @@
 import { TestBed } from '@angular/core/testing';
 import { StoreModule } from '@ngrx/store';
-import { Actions } from '@ngrx/effects';
 import { provideMockActions } from '@ngrx/effects/testing';
 import { DataPersistence } from '@nrwl/nx';
-import { readAll, hot } from '@nrwl/nx/testing';
+import { hot } from '@nrwl/nx/testing';
 import { AuthEffects } from './auth.effects';
 import * as AuthActions from '@ets/auth/src/+state/auth.actions';
 import {User} from "@ets/auth/src/models";
@@ -11,12 +10,16 @@ import {AuthService} from "@ets/auth/src/services/auth.service";
 import {HttpClientModule} from "@angular/common/http";
 import {RouterTestingModule} from "@angular/router/testing";
 
-import {cold, getTestScheduler} from 'jasmine-marbles';
+import {cold} from 'jasmine-marbles';
 import 'rxjs/add/operator/concat';
+import {Observable} from "rxjs/Observable";
+import "rxjs/add/observable/of";
+import "rxjs/add/observable/throw";
 
 describe('AuthEffects', () => {
-  let actions;
   let effects: AuthEffects;
+  let actions: Observable<any>;
+  let service: any;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
@@ -27,26 +30,34 @@ describe('AuthEffects', () => {
       ],
       providers: [
         AuthEffects,
+        provideMockActions(() => actions),
         DataPersistence,
-        AuthService,
-        provideMockActions(() => actions)
+        {
+          provide: AuthService,
+          useValue: jasmine.createSpyObj('AuthService', [ 'signIn' ])
+        }
       ]
     });
 
     effects = TestBed.get(AuthEffects);
+    service = TestBed.get(AuthService);
   });
 
-  describe('AuthEffect', () => {
-    // it('should work', async () => {
-    //   actions = hot('-a-|', { a: { type: '[Auth] Login', payload: {} } });
-    //   expect(await readAll(effects.signIn)).toEqual([{type: '[Auth] Login Success'}]);
-    // });
-    it('concat', () => {
-      const one$ = cold('x-x|');
-      const two$ = cold('-y|');
+  it('Auth signIn success', () => {
+    actions = hot('b', { b: { type: AuthActions.LOGIN } });
+    service.signIn.and.returnValue(Observable.of(new User()));
 
-      expect(one$.concat(two$)).toBeObservable(cold('x-x-y|'));
-    });
-
+    const expected = cold('a', { a: new AuthActions.LoginSuccess(new User())});
+    expect(effects.signIn).toBeObservable(expected);
   });
+
+  it('Auth signIn failed', () => {
+    actions = hot('b', { b: { type: AuthActions.LOGIN } });
+    service.signIn.and.returnValue(Observable.throw('error'));
+
+    const expected = cold('a', { a: new AuthActions.LoginFailure('error')});
+    expect(effects.signIn).toBeObservable(expected);
+  });
+
+
 });

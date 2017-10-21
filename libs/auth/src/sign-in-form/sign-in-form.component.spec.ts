@@ -32,4 +32,11 @@ describe('SignInFormComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
+  it('call function submit', () => {
+    spyOn(component, 'submit');
+    component.submit(component.signInForm);
+    component.submit(component.signInForm);
+    expect(component.submit).toHaveBeenCalled();
+  });
 });
