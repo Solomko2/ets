@@ -21,9 +21,6 @@ import * as fromComponents from './components';
     HomeRoutingModule
   ],
   providers: [HomeEffects],
-  declarations: [
-    ...fromContainers.containers,
-    ...fromComponents.components
-  ]
+  declarations: [...fromContainers.containers, ...fromComponents.components]
 })
 export class HomeModule {}

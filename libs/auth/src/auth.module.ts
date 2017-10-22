@@ -9,6 +9,8 @@ import { SignInFormComponent } from './sign-in-form/sign-in-form.component';
 import { SharedModule } from '@ets/shared';
 import { AuthService } from '@ets/auth/src/services/auth.service';
 import { AuthRoutingModule } from './auth-router.module';
+import { JwtService } from '@ets/auth/src/services/jwt.service';
+import {UserService} from "@ets/auth/src/services/user.service";
 
 @NgModule({
   imports: [
@@ -18,8 +20,19 @@ import { AuthRoutingModule } from './auth-router.module';
     SharedModule,
     AuthRoutingModule
   ],
-  providers: [AuthService, AuthEffects],
-  declarations: [SignInComponent, SignInFormComponent],
-  exports: [SignInComponent, SignInFormComponent]
+  providers: [
+    AuthService,
+    JwtService,
+    AuthEffects,
+    UserService
+  ],
+  declarations: [
+    SignInComponent,
+    SignInFormComponent
+  ],
+  exports: [
+    SignInComponent,
+    SignInFormComponent
+  ]
 })
 export class AuthModule {}

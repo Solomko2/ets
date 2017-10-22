@@ -1,7 +1,7 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { InputComponent } from './input.component';
-import {FormControl, ReactiveFormsModule} from "@angular/forms";
+import { FormControl, ReactiveFormsModule } from '@angular/forms';
 
 describe('InputComponent', () => {
   let component: InputComponent;
@@ -10,9 +10,7 @@ describe('InputComponent', () => {
   beforeEach(
     async(() => {
       TestBed.configureTestingModule({
-        imports: [
-          ReactiveFormsModule
-        ],
+        imports: [ReactiveFormsModule],
         declarations: [InputComponent]
       }).compileComponents();
     })

@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import {Store} from "@ngrx/store";
-import * as fromAuth from "@ets/auth/src/+state";
-import {User} from "@ets/auth/src/models";
-import {Observable} from "rxjs/Observable";
+import { Store } from '@ngrx/store';
+import * as fromAuth from '@ets/auth/src/+state';
+import { User } from '@ets/auth/src/models';
+import { Observable } from 'rxjs/Observable';
 
 @Component({
   selector: 'app-home-container',

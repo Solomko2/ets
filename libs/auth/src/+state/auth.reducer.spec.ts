@@ -20,8 +20,8 @@ describe('authReducer', () => {
           token: 'sometoken'
         }
       })
-    )
-      .toEqual({ user: {
+    ).toEqual({
+      user: {
         id: 1,
         email: 'sol@gmail.com',
         first_name: 'alex',
@@ -34,6 +34,7 @@ describe('authReducer', () => {
         updated_at: '20.10.2015',
         token: 'sometoken'
       },
-        isLoggedIn: true });
+      isLoggedIn: true
+    });
   });
 });

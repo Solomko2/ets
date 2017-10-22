@@ -5,16 +5,16 @@ import { DataPersistence } from '@nrwl/nx';
 import { hot } from '@nrwl/nx/testing';
 import { AuthEffects } from './auth.effects';
 import * as AuthActions from '@ets/auth/src/+state/auth.actions';
-import {User} from "@ets/auth/src/models";
-import {AuthService} from "@ets/auth/src/services/auth.service";
-import {HttpClientModule} from "@angular/common/http";
-import {RouterTestingModule} from "@angular/router/testing";
+import { User } from '@ets/auth/src/models';
+import { AuthService } from '@ets/auth/src/services/auth.service';
+import { HttpClientModule } from '@angular/common/http';
+import { RouterTestingModule } from '@angular/router/testing';
 
-import {cold} from 'jasmine-marbles';
+import { cold } from 'jasmine-marbles';
 import 'rxjs/add/operator/concat';
-import {Observable} from "rxjs/Observable";
-import "rxjs/add/observable/of";
-import "rxjs/add/observable/throw";
+import { Observable } from 'rxjs/Observable';
+import 'rxjs/add/observable/of';
+import 'rxjs/add/observable/throw';
 
 describe('AuthEffects', () => {
   let effects: AuthEffects;
@@ -23,18 +23,14 @@ describe('AuthEffects', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [
-        StoreModule.forRoot({}),
-        RouterTestingModule,
-        HttpClientModule
-      ],
+      imports: [StoreModule.forRoot({}), RouterTestingModule, HttpClientModule],
       providers: [
         AuthEffects,
         provideMockActions(() => actions),
         DataPersistence,
         {
           provide: AuthService,
-          useValue: jasmine.createSpyObj('AuthService', [ 'signIn' ])
+          useValue: jasmine.createSpyObj('AuthService', ['signIn'])
         }
       ]
     });
@@ -47,7 +43,7 @@ describe('AuthEffects', () => {
     actions = hot('b', { b: { type: AuthActions.LOGIN } });
     service.signIn.and.returnValue(Observable.of(new User()));
 
-    const expected = cold('a', { a: new AuthActions.LoginSuccess(new User())});
+    const expected = cold('a', { a: new AuthActions.LoginSuccess(new User()) });
     expect(effects.signIn).toBeObservable(expected);
   });
 
@@ -55,9 +51,7 @@ describe('AuthEffects', () => {
     actions = hot('b', { b: { type: AuthActions.LOGIN } });
     service.signIn.and.returnValue(Observable.throw('error'));
 
-    const expected = cold('a', { a: new AuthActions.LoginFailure('error')});
+    const expected = cold('a', { a: new AuthActions.LoginFailure('error') });
     expect(effects.signIn).toBeObservable(expected);
   });
-
-
 });
