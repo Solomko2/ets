@@ -30,7 +30,7 @@ describe('AuthEffects', () => {
         DataPersistence,
         {
           provide: AuthService,
-          useValue: jasmine.createSpyObj('AuthService', ['signIn'])
+          useValue: jasmine.createSpyObj('AuthService', ['signIn', 'loginSuccess$'])
         }
       ]
     });

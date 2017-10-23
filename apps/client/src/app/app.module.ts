@@ -12,6 +12,8 @@ import { environment } from '../environments/environment';
 import { AppRoutingModule } from './app-router.module';
 import { AuthGuard } from '@ets/auth/src/services/auth.guard';
 import { AuthModule } from '@ets/auth';
+import {HTTP_INTERCEPTORS} from "@angular/common/http";
+import {AuthInterceptorService} from "@ets/auth/src/services/auth-interceptor.service";
 
 @NgModule({
   imports: [
@@ -25,6 +27,14 @@ import { AuthModule } from '@ets/auth';
   ],
   declarations: [AppComponent],
   bootstrap: [AppComponent],
-  providers: [AppEffects, AuthGuard]
+  providers: [
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthInterceptorService,
+      multi: true
+    },
+    AppEffects,
+    AuthGuard
+  ]
 })
 export class AppModule {}

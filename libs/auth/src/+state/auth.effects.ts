@@ -3,6 +3,7 @@ import { Effect, Actions, toPayload } from '@ngrx/effects';
 import { DataPersistence } from '@nrwl/nx';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/do';
+import 'rxjs/add/observable/of';
 import { AuthState } from './auth.interfaces';
 import { AuthService } from '../services/auth.service';
 import { User } from '@ets/auth/src/models';
@@ -12,6 +13,7 @@ import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/mergeMap';
 import 'rxjs/add/operator/mapTo';
 import 'rxjs/add/operator/catch';
+import { JwtService } from '@ets/auth/src/services/jwt.service';
 
 @Injectable()
 export class AuthEffects {
@@ -34,7 +36,7 @@ export class AuthEffects {
     .ofType(AuthActions.LOGIN_SUCCESS)
     .do(() => this.router.navigate(['/home']))
     .map((auth: AuthActions.LoginSuccess) => auth.payload)
-    .do((user: User) => localStorage.setItem('token', user.token));
+    .do((user: User) => user.token ? this.jwtService.saveToken(user.token) : false);
 
   @Effect({ dispatch: false })
   loginRedirect$ = this.actions
@@ -45,6 +47,7 @@ export class AuthEffects {
     private actions: Actions,
     private authService: AuthService,
     private d: DataPersistence<AuthState>,
-    private router: Router
+    private router: Router,
+    private jwtService: JwtService
   ) {}
 }

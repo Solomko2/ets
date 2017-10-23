@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { UserService } from '@ets/auth/src/services/user.service';
 
 @Component({
   selector: 'app-root',
@@ -6,9 +7,9 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent implements OnInit {
-  constructor() {}
+  constructor(private userService: UserService) {}
 
   ngOnInit() {
-    // TODO(AlexSol): call populate function
+    this.userService.populate();
   }
 }
