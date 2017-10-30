@@ -17,4 +17,8 @@ export class HomeContainerComponent implements OnInit {
   ngOnInit() {
     this.user$ = this.store.select(fromAuth.getUser);
   }
+
+  test() {
+    this.store.dispatch({type: 'USER_LIST'});
+  }
 }

@@ -1,11 +1,11 @@
-export interface LoadData {
-  type: 'LOAD_DATA';
+export interface UserList {
+  type: 'USER_LIST';
   payload: {};
 }
 
-export interface DataLoaded {
-  type: 'DATA_LOADED';
+export interface UserListLoaded {
+  type: 'USER_LIST_LOADED';
   payload: {};
 }
 
-export type HomeAction = LoadData | DataLoaded;
+export type HomeAction = UserList | UserListLoaded;

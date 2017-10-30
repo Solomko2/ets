@@ -12,7 +12,7 @@ import { environment } from '../environments/environment';
 import { AppRoutingModule } from './app-router.module';
 import { AuthGuard } from '@ets/auth/src/services/auth.guard';
 import { AuthModule } from '@ets/auth';
-import {HTTP_INTERCEPTORS} from "@angular/common/http";
+import {HTTP_INTERCEPTORS, HttpClientModule} from "@angular/common/http";
 import {AuthInterceptorService} from "@ets/auth/src/services/auth-interceptor.service";
 
 @NgModule({
@@ -22,6 +22,7 @@ import {AuthInterceptorService} from "@ets/auth/src/services/auth-interceptor.se
     StoreModule.forRoot(appReducer, { initialState: appInitialState }),
     EffectsModule.forRoot([AppEffects]),
     !environment.production ? StoreDevtoolsModule.instrument() : [],
+    HttpClientModule,
     AppRoutingModule,
     AuthModule
   ],

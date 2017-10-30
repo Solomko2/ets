@@ -6,21 +6,21 @@ import { homeReducer } from './+state/home.reducer';
 import { homeInitialState } from './+state/home.init';
 import { HomeEffects } from './+state/home.effects';
 import { HomeRoutingModule } from './home-router.module';
-
-// containers
 import * as fromContainers from './containers';
-
-// components
 import * as fromComponents from './components';
+import * as fromServices from './services';
+
+import {SharedModule} from "@ets/shared";
 
 @NgModule({
   imports: [
     CommonModule,
     StoreModule.forFeature('home', homeReducer, { initialState: homeInitialState }),
     EffectsModule.forFeature([HomeEffects]),
-    HomeRoutingModule
+    HomeRoutingModule,
+    SharedModule
   ],
-  providers: [HomeEffects],
+  providers: [HomeEffects, ...fromServices.services],
   declarations: [...fromContainers.containers, ...fromComponents.components]
 })
 export class HomeModule {}

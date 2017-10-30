@@ -6,5 +6,6 @@
 export const environment = {
   production: false,
   signIn: '/api/v1/auth',
-  populate: '/api/v1/auth/me'
+  populate: '/api/v1/auth/me',
+  userList: '/api/v1/users'
 };

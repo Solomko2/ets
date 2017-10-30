@@ -1,5 +1,5 @@
 export interface Home {
-  // define state here
+  users: any[];
 }
 
 export interface HomeState {
