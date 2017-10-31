@@ -24,7 +24,7 @@
     "@angular/router": "^4.4.4",
     "@ngrx/effects": "^4.0.0",
     "@ngrx/entity": "^4.1.0",
-    "@ngrx/router-store": "^4.0.0",
+    "@ngrx/router-store": "^4.1.0",
     "@ngrx/store": "^4.0.0",
     "@ngrx/store-devtools": "^4.0.0",
     "@nrwl/nx": "^0.0.6",

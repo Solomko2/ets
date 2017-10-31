@@ -13,17 +13,19 @@ import { AppRoutingModule } from './app-router.module';
 import { AuthGuard } from '@ets/auth/src/services/auth.guard';
 import { AuthModule } from '@ets/auth';
 import {HTTP_INTERCEPTORS, HttpClientModule} from "@angular/common/http";
+import { StoreRouterConnectingModule, routerReducer } from '@ngrx/router-store';
 import {AuthInterceptorService} from "@ets/auth/src/services/auth-interceptor.service";
 
 @NgModule({
   imports: [
     BrowserModule,
     NxModule.forRoot(),
-    StoreModule.forRoot(appReducer, { initialState: appInitialState }),
+    StoreModule.forRoot([{routerReducer: routerReducer}, appReducer], { initialState: appInitialState }),
     EffectsModule.forRoot([AppEffects]),
     !environment.production ? StoreDevtoolsModule.instrument() : [],
     HttpClientModule,
     AppRoutingModule,
+    StoreRouterConnectingModule,
     AuthModule
   ],
   declarations: [AppComponent],
