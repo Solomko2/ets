@@ -33,3 +33,6 @@ export class LoadUserFailure {
   constructor(public payload: string) {}
 }
 
+
+export type HomeActions = LoadUsers | LoadUsersSuccess | LoadUserFailure;
+

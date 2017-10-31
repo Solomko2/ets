@@ -1,9 +1,9 @@
 import { Home } from './home.interfaces';
+import * as fromAction from './home.actions';
 
-export function homeReducer(state: Home, action: any): Home {
+export function homeReducer(state: Home, action: fromAction.HomeActions): Home {
   switch (action.type) {
-    case 'USER_LIST_LOADED': {
-      console.log(action);
+    case fromAction.LOAD_USERS_SUCCESS: {
       return { ...state, ...action.payload };
     }
     default: {
