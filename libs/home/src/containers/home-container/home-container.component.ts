@@ -3,6 +3,7 @@ import { Store } from '@ngrx/store';
 import * as fromAuth from '@ets/auth/src/+state';
 import { User } from '@ets/auth/src/models';
 import { Observable } from 'rxjs/Observable';
+import * as fromAction from '../../+state/home.actions';
 
 @Component({
   selector: 'app-home-container',
@@ -19,6 +20,6 @@ export class HomeContainerComponent implements OnInit {
   }
 
   test() {
-    this.store.dispatch({type: 'USER_LIST'});
+    this.store.dispatch(new fromAction.LoadUsers());
   }
 }

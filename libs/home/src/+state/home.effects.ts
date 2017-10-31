@@ -1,26 +1,28 @@
 import { Injectable } from '@angular/core';
 import { Effect, Actions } from '@ngrx/effects';
 import { DataPersistence } from '@nrwl/nx';
-import 'rxjs/add/operator/switchMap';
 import { HomeState } from './home.interfaces';
 import {HomeService} from "@ets/home/src/services";
+import * as fromAction from './home.actions';
 import "rxjs/add/operator/map";
+import {UserInstance} from "@ets/home/src/models";
 
 @Injectable()
 export class HomeEffects {
   @Effect()
-  userList = this.d.pessimisticUpdate('USER_LIST', {
-    run: (a: any, state: HomeState) => {
+  userList = this.d.pessimisticUpdate(fromAction.LOAD_USERS, {
+    run: (a: fromAction.LoadUsers, state: HomeState) => {
       return this.homeService.getUserList()
-        .map((users: any) => ({type: 'USER_LIST_LOADED', payload: users}));
+        .map((res: UserInstance[]) => new fromAction.LoadUsersSuccess({users: res}));
     },
 
-    onError: (a: any, error) => {
+    onError: (a: fromAction.LoadUsers, error) => {
       console.error('Error', error);
     }
   });
 
   constructor(
-    private actions: Actions,
-    private d: DataPersistence<HomeState>, private homeService: HomeService) {}
+    private d: DataPersistence<HomeState>,
+    private homeService: HomeService
+  ) {}
 }
